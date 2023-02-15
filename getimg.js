@@ -39,8 +39,8 @@ bot.on('photo', async (ctx) => {
 
   const browser = await puppeteer.launch({
     // executablePath: 'E:/Chromium/chrome.exe',
-    headless: false,
-    args: ['--no-sandbox']
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--single-process', '--no-zygote'] 
     });
 
     console.log("4");
@@ -49,7 +49,7 @@ bot.on('photo', async (ctx) => {
     console.log("4.5");
     // Navigate to the Imgur upload page
     await page.goto('https://ezgif.com/image-to-datauri', setTimeout(() => {
-    console.log("Wait 1s");
+    console.log("Wait 3s");
     // page.goto(`https://ezgif.com/image-to-datauri`)
     page.click('.button.primary');
     }, 3000));

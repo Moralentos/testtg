@@ -35,10 +35,11 @@ bot.on('photo', async (ctx) => {
   console.log("3");
   // Write the photo to the "img" folder
   fs.writeFileSync(`img/${fileId}.jpg`, data, 'binary');
+  console.log("Запуск puppeteer");
 
   const browser = await puppeteer.launch({
     // executablePath: 'E:/Chromium/chrome.exe',
-    headless: false,
+    headless: true,
     args: ['--no-sandbox']
     });
 

@@ -49,8 +49,9 @@ bot.on('photo', async (ctx) => {
     // Navigate to the Imgur upload page
     await page.goto('https://ezgif.com/image-to-datauri', setTimeout(() => {
     console.log("Wait 1s");
-    page.goto(`https://ezgif.com/image-to-datauri`)
-    }, 1000));
+    // page.goto(`https://ezgif.com/image-to-datauri`)
+    page.reload()
+    }, 5000));
     // console.log("Click");
     // await page.click('.button.primary');
     // setTimeout(() => {}, 2000);
@@ -92,6 +93,7 @@ bot.on('photo', async (ctx) => {
   } catch (error){
     await ctx.telegram.deleteMessage(messageProcessing.chat.id, messageProcessing.message_id) //Удаление сообщения
     await ctx.reply("❌ Не удалось обработать картинку")
+    console.log(`Текущая ошибка: ${error}`);
       try {fs.unlinkSync(`img/${fileId}.jpg`);}
       catch (error){console.log("Picture not found");}
   }

@@ -39,8 +39,8 @@ bot.on('photo', async (ctx) => {
 
   const browser = await puppeteer.launch({
     // executablePath: 'E:/Chromium/chrome.exe',
-    headless: true,
-    args: ['--no-sandbox']
+    headless: false,
+    // args: ['--no-sandbox']
     });
 
     console.log("4");
@@ -51,8 +51,8 @@ bot.on('photo', async (ctx) => {
     await page.goto('https://ezgif.com/image-to-datauri', setTimeout(() => {
     console.log("Wait 1s");
     // page.goto(`https://ezgif.com/image-to-datauri`)
-    page.reload()
-    }, 5000));
+    page.click('.button.primary');
+    }, 3000));
     // console.log("Click");
     // await page.click('.button.primary');
     // setTimeout(() => {}, 2000);

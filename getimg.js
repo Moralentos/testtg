@@ -48,8 +48,8 @@ bot.on('photo', async (ctx) => {
     console.log("4.5");
     // Navigate to the Imgur upload page
     await page.goto('https://ezgif.com/image-to-datauri', setTimeout(() => {
-    console.log("Wait 3s");
-    page.click('.button.primary')
+    console.log("Wait 1s");
+    page.goto(`https://ezgif.com/image-to-datauri`)
     }, 1000));
     // console.log("Click");
     // await page.click('.button.primary');

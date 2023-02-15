@@ -40,7 +40,7 @@ bot.on('photo', async (ctx) => {
   const browser = await puppeteer.launch({
     // executablePath: 'E:/Chromium/chrome.exe',
     headless: false,
-    // args: ['--no-sandbox']
+    args: ['--no-sandbox']
     });
 
     console.log("4");

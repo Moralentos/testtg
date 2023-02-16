@@ -1,13 +1,16 @@
 
 const token = '5825779457:AAECDwkPKIJe84XNUa4ziog8E4cX8qzA8g4';
-
 const {Telegraf} = require('telegraf');
 const bot = new Telegraf(token);
 const axios = require('axios');
 const fs = require('fs');
 const puppeteer = require('puppeteer');
 
+
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+
 const which = require('which');
+
 
 // const puppeteer = require('puppeteer-extra');
 // const stealth = require('puppeteer-extra-plugin-stealth');
@@ -48,11 +51,11 @@ bot.on('photo', async (ctx) => {
     const page = await browser.newPage();
     console.log("4.5");
     // Navigate to the Imgur upload page
-    await page.goto('https://ezgif.com/image-to-datauri', setTimeout(() => {
-    console.log("Wait 3s");
+    await page.goto('https://ezgif.com/image-to-datauri', async() => {
+    await console.log("Wait 3s");
     // page.goto(`https://ezgif.com/image-to-datauri`)
-    page.click('.button.primary');
-    }, 3000));
+    await page.click('.button.primary');
+    })
     // console.log("Click");
     // await page.click('.button.primary');
     // setTimeout(() => {}, 2000);
@@ -88,8 +91,10 @@ bot.on('photo', async (ctx) => {
     await ctx.telegram.deleteMessage(messageProcessing.chat.id, messageProcessing.message_id) //Удаление сообщения
     console.log(title);
     let end = new Date().getTime()
+    const currentIp = await fetch(`https://api.ipify.org`).then(res => res.text())
+    console.log(currentIp);
     ctx.replyWithHTML(
-      `✅ Аниме найдено\n\n<b>Название:</b> <i>${title}</i>\n\nВремя выполнения: ${end - start}ms`
+      `✅ Аниме найдено\n\n<b>Названиение:</b> <i>${title}</i>\n\nВремя выполнения: ${end - start}ms\n\nТекущий IP: ${currentIp}`
     )
   } catch (error){
     await ctx.telegram.deleteMessage(messageProcessing.chat.id, messageProcessing.message_id) //Удаление сообщения
@@ -107,5 +112,8 @@ bot.on('message', async msg => {
   const chatId = msg.chat.id;
   bot.telegram.sendMessage(chatId, `123`, {parse_mode: "HTML"})
 })
+
+
+
 
 bot.startPolling();
